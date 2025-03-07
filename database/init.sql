@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS meals;
+CREATE TABLE meals (
+    id SERIAL PRIMARY KEY,
+    recipe_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    date TEXT NOT NULL
+);
