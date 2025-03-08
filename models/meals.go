@@ -10,8 +10,8 @@ import (
 
 type Meal struct {
 	ID       int64  `json:"id"`
-	UserID   int64  `json:"user_id"`
-	RecipeID int64  `json:"recipe_id"`
+	UserID   int64  `json:"userId"`
+	RecipeID int64  `json:"recipeId"`
 	Date     string `json:"date"`
 }
 
@@ -26,7 +26,7 @@ func ListMealsByDate(ctx context.Context, start, end string) ([]Meal, error) {
 		return []Meal{}, err
 	}
 
-	var meals []Meal
+	meals := []Meal{}
 	for rows.Next() {
 		var meal Meal
 
@@ -42,7 +42,7 @@ func ListMealsByDate(ctx context.Context, start, end string) ([]Meal, error) {
 }
 
 func FindMeal(ctx context.Context, id int64) (Meal, error) {
-	query := `SELECT id, user_id, recipe_id, date FROM meals WHERE id = ?`
+	query := `SELECT id, user_id, recipe_id, date FROM meals WHERE id = $1`
 
 	result := database.DB.QueryRow(ctx, query, id)
 
@@ -71,7 +71,7 @@ func CreateMeal(ctx context.Context, meal Meal) (int64, error) {
 }
 
 func DeleteMeal(ctx context.Context, id int64) error {
-	query := `DELETE FROM meals WHERE id = ?`
+	query := `DELETE FROM meals WHERE id = $1`
 
 	_, err := database.DB.Exec(ctx, query, id)
 	if err != nil {

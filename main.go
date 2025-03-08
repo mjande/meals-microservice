@@ -9,6 +9,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 	"github.com/go-chi/jwtauth/v5"
+	_ "github.com/joho/godotenv/autoload"
 	"github.com/mjande/meals-microservice/database"
 	"github.com/mjande/meals-microservice/handlers"
 )
